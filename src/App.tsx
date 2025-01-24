@@ -6,11 +6,28 @@ import GradedPaperIcon from "./assets/landing/paper.svg"
 import WarningIcon from "./assets/landing/warning.svg"
 import { Card } from "@/components/ui/card"
 import { Button } from "./components/ui/button"
+import { TypeAnimation } from "react-type-animation"
+import { WrapText } from "lucide-react"
+
+import { useEffect, useState } from "react"
 
 const CANNED_FEEDBACK =
     "**Summary Evaluation Against Rubric: Accuracy (10/10):** The essay presents accurate information about Abraham Lincoln's life, presidency, and significant contributions, including key events like his election, the Civil..."
 
 const App = () => {
+
+    function ProgressCounter() {
+        const [count, setCount] = useState(0);
+
+        useEffect(() => {
+            setTimeout(() => {
+                setCount((count) => (count >= 40 ? 40 : count + 1));
+            }, 10);
+        }, [count]); // <- add empty brackets here
+
+        return <p> {count}% </p>;
+    }
+
     return (
         <div className="flex min-h-screen w-full flex-1 flex-col">
             <div className="h-2 bg-navy-800"></div>
@@ -34,24 +51,32 @@ const App = () => {
                             </div>
                             <div className="flex w-[200px] items-center justify-center">
                                 <div>
-                                    <p className="text-sm">{CANNED_FEEDBACK}</p>
+                                    <p className="text-sm">
+                                        <TypeAnimation
+                                            cursor={false}
+                                            repeat={Infinity}
+                                            sequence={[
+                                                CANNED_FEEDBACK,
+                                                4500
+                                            ]}
+                                        />
+                                    </p>
                                 </div>
                             </div>
                         </Card>
                         <Card className="flex h-[220px] w-[370px] justify-center gap-2 rounded p-5">
                             <div className="flex flex-col items-center justify-center gap-2">
                                 <img className="h-16 w-16" src={WarningIcon} alt="AI Detection" />
-
                                 <p>AI Detection</p>
                             </div>
                             <div className="flex w-[200px] items-center justify-center">
                                 <div>
                                     <p className="mb-3 text-sm">Probability AI generated</p>
                                     <div className="relative flex aspect-[2] items-center justify-center overflow-hidden rounded-t-full bg-navy-900">
-                                        <div className="absolute top-0 aspect-square w-full rotate-[calc(72deg-45deg)] bg-gradient-to-tr from-transparent from-50% to-white to-50% transition-transform duration-500"></div>
+                                        <div className="absolute top-0 aspect-square w-full animate-rotate bg-gradient-to-tr from-transparent from-50% to-white to-50% transition-transform duration-500"></div>
                                         <div className="absolute top-1/4 flex aspect-square w-3/4 justify-center rounded-full bg-white"></div>
                                         <div className="absolute bottom-0 w-full truncate text-center text-2xl leading-none">
-                                            40%
+                                            <ProgressCounter />
                                         </div>
                                     </div>
                                 </div>
@@ -59,19 +84,23 @@ const App = () => {
                         </Card>
                         <Card className="flex h-[220px] w-[370px] justify-center gap-2 rounded p-5">
                             <div className="flex flex-col items-center justify-center">
-                                <img className="h-16 w-16" src={GoogleClassroomIcon} alt="Import Essays" />
-
-                                <p>Import Essays</p>
+                                <div className="imgbut">
+                                    <img className="h-16 w-16 ml-4" src={GoogleClassroomIcon} alt="Import Essays" />
+                                    <p>Import Essays</p>
+                                </div>
                             </div>
+
                             <div className="flex w-[200px] items-center justify-center">
                                 <div></div>
                             </div>
                         </Card>
                         <Card className="flex h-[220px] w-[370px] justify-center gap-2 rounded p-5">
                             <div className="flex flex-col items-center justify-center">
-                                <img className="h-16 w-16" src={RubricIcon} alt="Use Your Rubric" />
+                                <div className="imgbut">
+                                    <img className="h-16 w-16 ml-4" src={RubricIcon} alt="Use Your Rubric" />
 
-                                <p>Use Your Rubric</p>
+                                    <p>Use Your Rubric</p>
+                                </div>
                             </div>
                             <div className="flex w-[200px] items-center justify-center">
                                 <div></div>

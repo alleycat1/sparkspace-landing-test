@@ -83,7 +83,16 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		keyframes: {
+			rotate: {
+				'0%': { transform: 'rotate(calc(0deg - 45deg))' },
+				'100%': { transform: 'rotate(calc(72deg - 45deg))' },
+			},
+		},
+		animation: {
+			rotate: 'rotate 5s ease-in-out forwards',
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
